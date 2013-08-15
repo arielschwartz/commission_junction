@@ -55,7 +55,8 @@ class CommissionJunction
     params = {'locale' => 'en'}.merge(params)
 
     response = self.class.get(WEB_SERVICE_URIS[:categories], :query => params, :timeout => @timeout)
-
+    response = MultiXml.parse(response)
+    
     cj_api = response['cj_api']
     error_message = cj_api['error_message']
 
@@ -73,6 +74,7 @@ class CommissionJunction
 
     begin
       response = self.class.get(WEB_SERVICE_URIS[:advertiser_lookup], :query => params)
+      response = MultiXml.parse(response)
       cj_api = response['cj_api']
       error_message = cj_api['error_message']
 
@@ -107,6 +109,7 @@ class CommissionJunction
 
     begin
       response = self.class.get(WEB_SERVICE_URIS[:product_search], :query => params, :timeout => @timeout)
+      response = MultiXml.parse(response)
 
       cj_api = response['cj_api']
       error_message = cj_api['error_message']
@@ -142,6 +145,7 @@ class CommissionJunction
 
     begin
       response = self.class.get(WEB_SERVICE_URIS[:link_search], :query => params, :timeout => @timeout)
+      response = MultiXml.parse(response)
 
       cj_api = response['cj_api']
       error_message = cj_api['error_message']
@@ -173,6 +177,8 @@ class CommissionJunction
 
     begin
       response = self.class.get(WEB_SERVICE_URIS[:commissions], :query => params)
+      response = MultiXml.parse(response)
+      
       cj_api = response['cj_api']
       error_message = cj_api['error_message']
 
